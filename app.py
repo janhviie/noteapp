@@ -51,7 +51,7 @@ def invalid_credentials(form, field):
 
 class SignupForm(FlaskForm):
     username=StringField('username', validators=[InputRequired(message="Username required"), Length(min=4, max=15)])
-    password=PasswordField('password', validators=[InputRequired(message="Password required"), Length(min=4, max=80)])
+    password=PasswordField('password', validators=[InputRequired(message="Password required"), Length(min=6, max=80)])
     confirm_pswd=PasswordField('password',validators=[InputRequired(message="Password required"), EqualTo('password', message="Passwords must match")])
     submit_button=SubmitField('Sign Up')
 
