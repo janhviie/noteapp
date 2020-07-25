@@ -1,0 +1,25 @@
+{% extends "index.html" %}
+{% block title %}Add note{% endblock %}
+{% block link %} <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='loginstyle.css')}}">{% endblock %}
+
+{% block content %}
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    {% for msg in messages %}
+        <p>{{msg}}</p>
+    {% endfor %}
+  {% endif %}
+{% endwith %}
+<div class="main">
+<form class="form2" method="POST">
+
+    <input class="title" name="title" type="text" align="center" placeholder="Title"></input>
+
+     <textarea class="title" name="note" rows="16" placeholder="Description"></textarea>
+     <input type="submit" class="save" value="save"></input>
+</form>
+</div>
+
+
+
+{% endblock %}

@@ -1,0 +1,58 @@
+
+{% extends "index.html" %}
+{% block title %}Sign Up{% endblock %}
+{% block link %} <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='loginstyle.css')}}">{% endblock %}
+
+{% block content %}
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    {% for msg in messages %}
+      <center><b>  <p>{{msg}}</p></b></center>
+    {% endfor %}
+  {% endif %}
+{% endwith %}
+<div class="main">
+        <p class="sign" align="center">Sign Up</p>
+
+
+          <form class="form1" action="{{ url_for('signup') }}" method="POST" novalidate>
+            {{ form.username(class='un',placeholder='What is your Username') }}
+
+              <ul>
+              {% for error in form.username.errors %}
+                <li>{{ error }}</li>
+              {% endfor %}
+            </ul>
+
+            {{ form.password(class='pass',placeholder='Choose a Password') }}
+            <ul>
+              {% for error in form.password.errors %}
+                <li>{{ error }}</li>
+              {% endfor %}
+            </ul>
+
+
+            {{ form.confirm_pswd(class='pass',placeholder='Confirm Password') }}
+            <ul>
+              {% for error in form.confirm_pswd.errors %}
+                <li>{{ error }}</li>
+              {% endfor %}
+            </ul>
+
+            {{ form.submit_button(class="submit") }}
+
+            <!-- <input class="un " type="text" align="center" placeholder="Enter username"> -->
+            <!-- <input class="pass" type="password" align="center" placeholder="Enter password"> -->
+            <!-- <a class="submit" align="center">Log in!</a> -->
+
+            {{ form.csrf_token }}
+            <p class="forgot" align="center">Already have an account ?<a href="/login"> <b>Click</b> </a> to log in.</p>
+            </form>
+
+
+<!-- <input class="un " type="email" align="center" placeholder="Enter email">
+          <input class="pass" type="text" align="center" placeholder="What's your username">
+          <input class="pass" type="password" align="center" placeholder="Choose a password">
+          <a class="submit" align="center">Sign Up!</a> -->
+  </div>
+{% endblock %}

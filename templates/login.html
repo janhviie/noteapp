@@ -1,0 +1,67 @@
+{% extends "index.html" %}
+{% block title %}Log In{% endblock %}
+{% block link %} <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='loginstyle.css')}}">{% endblock %}
+
+{% block content %}
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    {% for msg in messages %}
+        <center><b><p>{{msg}}</p></b></center>
+    {% endfor %}
+  {% endif %}
+{% endwith %}
+<div class="main">
+        <p class="sign" align="center">Log in</p>
+        <form class="form1" action="{{ url_for('login') }}" method="POST" novalidate>
+          {{ form1.username(class='un',placeholder='Enter Username') }}
+
+            <ul>
+            {% for error in form1.username.errors %}
+              <li>{{ error }}</li>
+            {% endfor %}
+          </ul>
+
+          {{ form1.password(class='pass',placeholder='Enter Password') }}
+          <ul>
+            {% for error in form1.password.errors %}
+              <li>{{ error }}</li>
+            {% endfor %}
+          </ul>
+
+          {{ form1.submit_button(class="submit") }}
+
+          {{ form1.csrf_token }}
+          </form>
+      </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--
+
+        <form class="form1">
+
+          <input class="un " type="text" align="center" placeholder="Enter username">
+          <input class="pass" type="password" align="center" placeholder="Enter password">
+          <a class="submit" align="center">Log in!</a>
+          <p class="forgot" align="center"><a href="#">Forgot Password?</a></p>
+
+          </form>
+
+        </div> -->
+{% endblock %}

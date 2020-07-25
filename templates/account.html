@@ -1,0 +1,95 @@
+{% extends "index.html" %}
+{% block title %}Sign Up{% endblock %}
+{% block link %} <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='loginstyle.css')}}">{% endblock %}
+
+{% block content %}
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    {% for msg in messages %}
+      <center><b>  <p>{{msg}}</p></b></center>
+    {% endfor %}
+  {% endif %}
+{% endwith %}
+ <center><div>
+<a class="button" value="Logout" href="/" style="float: right;">Log Out</a>
+
+<!-- <a class="button" href="#popup1" style="float: right;">Add Note</a> -->
+<h1 class="wel">{{ obj.username }}'s Notes</h1>
+</div>
+</center>
+      <center><div style=" width: 90%; height: 80%;">
+
+        <form class="form2" action="/account" method="POST">
+            <input class="title " name="title" type="text" align="center" placeholder="Title">
+
+             <textarea class="title" name="note" rows="20" placeholder="Description"></textarea>
+             <input type="submit" class="save" value="Save" align="right"></input>
+         </form>
+         {% for note in notes %}
+          <div class="notedis" tabindex="-1">
+
+
+
+            <input class="titl" id="ntitle" name="updtit" align="center" tabindex="-1" style="word-wrap: break-word;" value={{ note.title }}></input>
+
+            <textarea class="titl" id="ndesc" name="upddes" rows='20' tabindex="-1" style="word-wrap: break-word;">{{ note.note1 }}</textarea>
+
+
+
+
+             </div>
+
+
+
+
+         {% endfor %}
+         </div>
+
+
+</center>
+
+
+
+
+<div id="popup2" class="overlay">
+<div class="popup">
+
+  <a class="close" href="#">&times;</a>
+  <div class="content">
+    <form class="form2" action="{{ url_for('account') }}">
+
+    <input class="title "  id="ti1" name="title1" type="text" align="center" >
+
+     <textarea class="title" id="de1" name="note1" rows="20" placeholder="Description"></textarea>
+
+     <input type="submit" class="save1" name="delete" value="Delete" align="right"></input>
+     <input type="submit" class="save1" name="save" value="Save" align="right"></input>
+
+   </form>
+  </div>
+</div>
+</div>
+
+
+
+
+
+<div id="popup1" class="overlay">
+<div class="popup">
+
+  <a class="close" href="#">&times;</a>
+  <div class="content">
+    <form class="form2" action="{{ url_for('account') }}" method="POST">
+    <input class="title " name="title" type="text" align="center" placeholder="Title">
+
+     <textarea class="title" name="note" rows="20" placeholder="Description"></textarea>
+     <input type="submit" class="save" value="Save" align="right"></input>
+   </form>
+  </div>
+</div>
+</div>
+
+
+
+
+{% endblock %}

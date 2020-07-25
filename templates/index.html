@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>{% block title %} {% endblock %}</title>
+    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='indexcss.css')}}">
+    {% block link %}{% endblock %}
+  </head>
+  <body>
+    <!-- <div class="topnav">
+  <a href="/">Home</a>
+  <a href="/login">Log In</a>
+  <a href="/signup">Sign Up</a>
+
+</div> -->
+{% block content %} {% endblock %}
+<script>
+ function note(){
+   var title=document.getElementById("ntitle").innerHTML
+   var decr=document.getElementById("ndesc").innerHTML
+   document.getElementById('ti1').value=title
+   document.getElementById('de1').innerHTML=decr
+ }
+</script>
+  </body>
+
+</html>

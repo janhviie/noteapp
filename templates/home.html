@@ -1,0 +1,38 @@
+<html>
+  <body>
+    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='indexcss.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='loginstyle.css')}}">
+    <h1 class="sign" style="margin: 20px;">Add Note</h1>
+    <a class="button" value="Logout" href="/" style="float: right;">Log Out</a>
+    <form method="POST" action="/user">
+            <input type="text" class="un" name="title" placeholder="title" style="width: 30%; display: block;"></input>
+            <textarea class="un" rows="9" name="note" placeholder="Description" style="word-wrap: break-word; width: 40%; display: block;"></textarea>
+            <input type="submit" class="button" value="Add Note"></input>
+        </form>
+    {% for note in notes %}
+    <center><div class="notedis">
+<!-- Update Form -->
+  <form method="POST" action="/update">
+
+    <input type="hidden" value="{{note.title}}" name="oldtitle">
+    <input type="hidden" value="{{note.note1}}" name="oldnote">
+    <input class="title" type="text" value="{{note.title}}" name="newtitle" >
+    <textarea class="title" rows="9" type="text" name="newnote" style="word-wrap: break-word;">{{note.note1}}</textarea>
+    <input type="submit" class="save" value="Save Changes">
+
+  </form>
+<!-- Delete Form -->
+  <form method="POST" action="./delete">
+  <input type="hidden" value="{{note.title}}" name="title">
+  <input type="hidden" value="{{note.note1}}" name="note">
+  <input type="submit" class="save1" value="Delete">
+</form>
+</div>
+</center>
+
+{% endfor %}
+
+
+
+  </body>
+</html>
