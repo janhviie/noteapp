@@ -1,14 +1,16 @@
 from flask import Flask, render_template, url_for, redirect, session, request, flash
 from flask import jsonify
 from flask_marshmallow import Marshmallow
-from wtform_fields import *
+from flask_wtf import FlaskForm
+from wtforms import StringField, PasswordField, SubmitField
+from wtforms.validators import InputRequired, Length, EqualTo, ValidationError
 
 from flask_sqlalchemy import SQLAlchemy
 app=Flask(__name__)
 app.config['SECRET_KEY']='secret'
 
-
-app.config['SQLALCHEMY_DATABASE_URI'] ='postgres://jstdnmclztzjwh:600b13470d5189ebc80ee6e364668a05dc230cfb4631849ba3ddaabc79f83b19@ec2-18-209-187-54.compute-1.amazonaws.com:5432/damvep52h8rubp'
+app.config['SQLALCHEMY_DATABASE_URI'] ='postgres://postgres:jp101@localhost/newdb1'
+# app.config['SQLALCHEMY_DATABASE_URI'] ='postgres://jstdnmclztzjwh:600b13470d5189ebc80ee6e364668a05dc230cfb4631849ba3ddaabc79f83b19@ec2-18-209-187-54.compute-1.amazonaws.com:5432/damvep52h8rubp'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS']=False
 
 db=SQLAlchemy(app)
@@ -36,6 +38,32 @@ class NoteSchema(ma.SQLAlchemyAutoSchema):
     class Meta:
         model=Note
 
+
+def invalid_credentials(form, field):
+    username_entered=form.username.data
+    password_entered=field.data
+    # check if username exists
+    user_obj= User.query.filter_by(username=username_entered).first()
+    if user_obj is None:
+        raise ValidationError("Username or Password is incorrect")
+    elif password_entered != user_obj.password:
+        raise ValidationError("Username or Password is incorrect")
+
+class SignupForm(FlaskForm):
+    username=StringField('username', validators=[InputRequired(message="Username required"), Length(min=4, max=15)])
+    password=PasswordField('password', validators=[InputRequired(message="Password required"), Length(min=4, max=80)])
+    confirm_pswd=PasswordField('password',validators=[InputRequired(message="Password required"), EqualTo('password', message="Passwords must match")])
+    submit_button=SubmitField('Sign Up')
+
+    def validate_username(self, username):
+        user_obj= User.query.filter_by(username=username.data).first()
+        if user_obj:
+            raise ValidationError("Username already exists")
+
+class loginForm(FlaskForm):
+    username=StringField('username', validators=[InputRequired(message="Username required")])
+    password=PasswordField('password', validators=[InputRequired(message="Password required"), invalid_credentials])
+    submit_button=SubmitField('Log in')
 
 
 @app.route('/', methods=['GET', 'POST'])
