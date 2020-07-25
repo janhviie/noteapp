@@ -10,6 +10,8 @@
     {% endfor %}
   {% endif %}
 {% endwith %}
+<div>
+  <a class="button" href="/">Back to Signup Page</a>
 <div class="main">
         <p class="sign" align="center">Log in</p>
         <form class="form1" action="{{ url_for('login') }}" method="POST" novalidate>
@@ -32,6 +34,10 @@
 
           {{ form1.csrf_token }}
           </form>
+
+      </div>
+
+
       </div>
 
 
