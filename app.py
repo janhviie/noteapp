@@ -9,7 +9,6 @@ from flask_sqlalchemy import SQLAlchemy
 app=Flask(__name__)
 app.config['SECRET_KEY']='secret'
 
-# app.config['SQLALCHEMY_DATABASE_URI'] ='postgres://postgres:jp101@localhost/newdb1'
 app.config['SQLALCHEMY_DATABASE_URI'] ='postgres://jstdnmclztzjwh:600b13470d5189ebc80ee6e364668a05dc230cfb4631849ba3ddaabc79f83b19@ec2-18-209-187-54.compute-1.amazonaws.com:5432/damvep52h8rubp'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS']=False
 
